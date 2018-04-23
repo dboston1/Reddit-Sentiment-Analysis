@@ -18,4 +18,4 @@ $ rm -r build
 
 $HADOOP_HOME/bin/hadoop jar SentimentAnalysis.jar org.SentimentAnalysis.Driver /termProject/test.txt /test-output -negation /termProject/negate-words.txt -pos /termProject/pos-words.txt -neg /termProject/neg-words.txt
 
-Input can be changed from /termProject/test.txt to desired input files, and the output file can be changed from /test-output if desired. 
+As-is, it will take /termProject/test.txt, run the program, and store the results in /test-output. This can be modified to a directory of input files by replacing *termProject/test.txt* with */yourDirectory/* 
