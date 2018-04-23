@@ -1,0 +1,34 @@
+501	trump	donald trump is crazy, i hope he loses
+502	trump	hes an idiot trump
+503	trump	are you kidding me?! trump is not that smart.
+504	trump	i didn't vote for trump
+505	trump	i did vote for trump
+506	trump	you should vote for trump
+507	trump	donalds ok i guess
+508	trump	whats donalds problem
+509	trump	donalds gonna drain the swamp
+510	trump	stoked to see you win donald
+511	trump	why vote for anyone but donald
+512	trump	a vote for trump is a vote for making america great again
+601	hillary	hillary should die in a hole
+602	hillary	who does hillary think she is, shes a complete retard
+603	hillary	i hope hillary does not win the election
+604	hillary	ill move if hillary wins the election
+605	hillary	she should have stayed in the kitchen
+606	hillary	hillary is a pioneer
+607	hillary	good for you hillary
+608	hillary	im not happy with hillary
+609	hillary	hillary will burn the country to the ground
+610	hillary	hillary is a bumbling moron
+611	hillary	hillary has the best foreign policy
+612	hillary	hillarys email scandal made me not want to vote for her
+701	both	hillary is bad, but donald trump is dumb too
+702	both	fuck donald trump, and fuck hillary
+703	both	i love trump, but hillary can go die
+704	both	i enjoy listening to hillary, but trump is mental
+705	both	hillary is bad, but donald trump is fucking crazy
+706	both	would you rather a crooked hillary or an orange trump
+707	both	why vote when hillarys a liar and trump is just dumb
+708	both	hillary is good but not as great as trump
+
+
