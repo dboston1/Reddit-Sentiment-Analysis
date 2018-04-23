@@ -17,3 +17,5 @@ $ rm -r build
 *This assumes you have all text files (test.txt, negate-words.txt, pos-words.txt, and neg-words.txt) in /termProject directory in hdfs. Modify the paths to reflect any differences.*
 
 $HADOOP_HOME/bin/hadoop jar SentimentAnalysis.jar org.SentimentAnalysis.Driver /termProject/test.txt /test-output -negation /termProject/negate-words.txt -pos /termProject/pos-words.txt -neg /termProject/neg-words.txt
+
+Input can be changed from /termProject/test.txt to desired input files, and the output file can be changed from /test-output if desired. 
