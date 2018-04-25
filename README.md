@@ -1,5 +1,7 @@
 # Reddit-Sentiment-Analysis
-Program that performs textual analysis of Reddit data (approx. 300 GB of JSON data) preprocessed by another team member. Uses Hadoop's Mapreduce to classify comments as either positive or negative based on certain keywords, negation, etc.
+2-part Mapreduce Program that performs textual analysis of Reddit data (approx. 300 GB of JSON data) preprocessed by another team member. This program performs textual sentiment analysis on reddit comments determined by preprocessing to be discussing either Donald Trump, Hillary Clinton, or both, and summarizes the data.
+
+The preprocessing is assumed to have already screened comments by date and topic (Trump and Clinton).  Per the specifications of the project, we limited our scope to comments made between July 19th, 2016, through November 8th, 2016. 
 
 
 <h2>PART 1:</h2>
