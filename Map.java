@@ -26,6 +26,10 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Mapper;
 
+// Hadoop Counters
+import org.apache.hadoop.mapreduce.Counter;
+import org.apache.hadoop.mapreduce.Counters;
+
 
 // Hadoop wrapper classes
 import org.apache.hadoop.io.IntWritable;
@@ -33,12 +37,15 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.util.StringUtils;
 
-// Hadoop counter classes
-import org.apache.hadoop.mapreduce.Counters;
-import org.apache.hadoop.mapreduce.Counter;
-
 
 public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
+	
+	//define counters
+	public static enum CTR{
+		TRUMP,
+		HILLARY,
+		BOTH
+	}
 	
 	// Reusable variables
 	private Text outKey = new Text();
@@ -95,6 +102,7 @@ public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         trumpContext.add("man");
         trumpContext.add("guy");
         trumpContext.add("boy");
+        trumpContext.add("drumpf");
         
         hillaryContext.add("hillary");
         hillaryContext.add("hilary");
@@ -176,6 +184,7 @@ public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         String line;
         String docId;
         String writtenAbout;
+        String uTC;
         int sentimentValue;
         int index;
         boolean negation;
@@ -193,7 +202,7 @@ public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
             //get docID
             index = line.indexOf('\t');
             
-            //if there is no docId for some reason, don't error, just skip comment
+            //if there is no docId/writtenAbout/UTC time code for some reason, don't error, just skip comment
             if(index == -1){    
                 index = 0;
             }
@@ -208,7 +217,30 @@ public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
             }
             writtenAbout = line.substring(0, index);
             line = line.substring(++index);
+            
+            //get UTC (time code)
+            index = line.indexOf('\t');
+            
+            if(index == -1){
+				index = 0;
+			}
+            uTC = line.substring(0, index);
+            
+            
+            //remaining line = comment body
+            line = line.substring(++index);
             line = line.replaceAll("[^a-z ]", "");
+            
+            //increment comment counter for appropriate party (TRUMP, HILLARY, or BOTH)
+            if(writtenAbout.equals("hillary")){
+				context.getCounter(CTR.HILLARY).increment(1);
+			}
+			else if(writtenAbout.equals("trump")){
+				context.getCounter(CTR.TRUMP).increment(1);
+			}
+			else{
+				context.getCounter(CTR.BOTH).increment(1);
+			}
             
             //if we know the comment was written entirely about either trump or hillary explicitly:
             if(!writtenAbout.equals("both")){
@@ -236,7 +268,7 @@ public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
                 }
                 
                 // output to context and move to next comment
-                outKey = new Text(docId.concat("\t").concat(writtenAbout));
+                outKey = new Text(uTC.concat("\t").concat(writtenAbout));
                 if(negation == true){
                     sentimentValue *= -1; 
                 }
@@ -407,13 +439,13 @@ public class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
                     hillarySentiment += sentimentValue;
                 }
                 
-                // output hillary's score to context:
-                outKey = new Text(docId.concat("\t").concat("hillary"));
+                // output hillary's score for "both" comment to context:
+                outKey = new Text(uTC.concat("\t").concat("hillary"));
                 value.set(hillarySentiment);
                 context.write(outKey, value);
                 
-                // output trump's score to context:
-                outKey = new Text(docId.concat("\t").concat("trump"));
+                // output trump's score for "both" comment to context:
+                outKey = new Text(uTC.concat("\t").concat("trump"));
                 value.set(trumpSentiment);
                 context.write(outKey, value);
             }
