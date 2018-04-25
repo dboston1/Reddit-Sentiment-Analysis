@@ -87,7 +87,7 @@ public class Driver extends Configured implements Tool {
 	System.out.printf("\nH: %f T: %f B: %f\n", hillary, trump, both);
 	
 	FileSystem hdfs = FileSystem.get( new URI("hdfs://montgomery:40181"), getConf());
-	Path file = new Path("hdfs://montgomery:40181/count.txt");
+	Path file = new Path("hdfs://montgomery:40181/termProject/Comment_Count.txt");
 	if(hdfs.exists(file)){
 		hdfs.delete(file, true);
 	}
